@@ -1,0 +1,22 @@
+# Dépendances et build
+node_modules
+dist
+
+# Variables d'environnement (secrets), sauf le modèle
+.env*
+!.env.example
+
+# Journaux
+*.log
+npm-debug.log*
+
+# Éditeurs et système
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+
+# Cache et tests
+.vite
+coverage
