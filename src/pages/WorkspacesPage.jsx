@@ -70,8 +70,8 @@ function WorkspaceFormModal({ onClose, onSaved }) {
     <Modal title="Nouveau workspace" onClose={onClose}>
       <form className="form" onSubmit={submit}>
         <ErrorBanner message={error} />
-        <label>Nom<input value={name} onChange={(e) => setName(e.target.value)} required autoFocus /></label>
-        <label>Description<textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} /></label>
+        <label>Nom<input value={name} onChange={(e) => setName(e.target.value)} maxLength={255} required autoFocus /></label>
+        <label>Description<textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} maxLength={255} /></label>
         <button disabled={saving}>{saving ? 'Création…' : 'Créer'}</button>
       </form>
     </Modal>

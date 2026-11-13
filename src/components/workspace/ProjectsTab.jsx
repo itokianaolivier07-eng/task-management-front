@@ -90,8 +90,8 @@ function ProjectFormModal({ workspaceId, project, onClose, onSaved }) {
     <Modal title={project ? 'Modifier le projet' : 'Nouveau projet'} onClose={onClose}>
       <form className="form" onSubmit={submit}>
         <ErrorBanner message={error} />
-        <label>Nom<input value={name} onChange={(e) => setName(e.target.value)} required autoFocus /></label>
-        <label>Description<textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} /></label>
+        <label>Nom<input value={name} onChange={(e) => setName(e.target.value)} maxLength={200} required autoFocus /></label>
+        <label>Description<textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} maxLength={2000} /></label>
         <button disabled={saving}>{saving ? 'Enregistrement…' : 'Enregistrer'}</button>
       </form>
     </Modal>

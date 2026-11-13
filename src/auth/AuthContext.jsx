@@ -45,6 +45,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (!token) return
     const delay = getExpiryMs(token) - Date.now()
+    // setTimeout est limité à ~24,8 jours : au-delà, on laisse le 401 du back déconnecter.
+    if (delay > 2_147_483_647) return
     const timer = setTimeout(logout, Math.max(delay, 0))
     return () => clearTimeout(timer)
   }, [token, logout])

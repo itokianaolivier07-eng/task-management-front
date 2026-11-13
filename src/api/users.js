@@ -1,4 +1,4 @@
 import { request } from './client.js'
 
-// Optionnel : nécessite backend-patch/UserController.java. Sans lui, l'interface affiche l'e-mail.
+// Profil de l'utilisateur connecté ({ id, name, email }) : sert à afficher le nom dans la barre du haut.
 export const getMe = () => request('/users/me')

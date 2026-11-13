@@ -18,8 +18,10 @@ export default function MembersTab({ workspace }) {
     try {
       await action()
       reload()
+      return true
     } catch (err) {
       setActionError(err.message)
+      return false
     }
   }
 
@@ -67,20 +69,20 @@ export default function MembersTab({ workspace }) {
       )}
 
       {can.manageWorkspace(workspace.role) && (
-        <InviteForm onInvite={(email, role) => run(() => addMember(workspace.id, email, role))} />
+        <InviteForm myRole={workspace.role} onInvite={(email, role) => run(() => addMember(workspace.id, email, role))} />
       )}
     </>
   )
 }
 
-function InviteForm({ onInvite }) {
+function InviteForm({ myRole, onInvite }) {
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('MEMBER')
 
   async function submit(e) {
     e.preventDefault()
-    await onInvite(email.trim(), role)
-    setEmail('')
+    // On ne vide le champ que si l'invitation a réussi (sinon on garde l'e-mail pour corriger).
+    if (await onInvite(email.trim(), role)) setEmail('')
   }
 
   return (
@@ -91,7 +93,7 @@ function InviteForm({ onInvite }) {
         <input type="email" placeholder="e-mail du membre" value={email}
                onChange={(e) => setEmail(e.target.value)} required />
         <select value={role} onChange={(e) => setRole(e.target.value)}>
-          {ASSIGNABLE_ROLES.map((r) => <option key={r.value} value={r.value}>{r.label}</option>)}
+          {ASSIGNABLE_ROLES.filter((r) => can.inviteAs(myRole, r.value)).map((r) => <option key={r.value} value={r.value}>{r.label}</option>)}
         </select>
         <button>Inviter</button>
       </div>

@@ -20,7 +20,7 @@ export default function RegisterPage() {
       await register(name.trim(), email.trim(), password)
       navigate('/', { replace: true })
     } catch (err) {
-      setError(err.message) // ex : "Cet e-mail est déjà utilisé" (409) ou erreur de validation (400)
+      setError(err.message) // message du back (409 : compte impossible à créer, 400 : validation, 429 : trop de tentatives)
     } finally {
       setLoading(false)
     }
@@ -34,17 +34,17 @@ export default function RegisterPage() {
 
         <label>
           Nom
-          <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" required autoFocus />
+          <input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" maxLength={255} required autoFocus />
         </label>
         <label>
           E-mail
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                 autoComplete="email" required />
+                 autoComplete="email" maxLength={255} required />
         </label>
         <label>
-          Mot de passe (8 caractères minimum)
+          Mot de passe (8 à 72 caractères)
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                 autoComplete="new-password" minLength={8} required />
+                 autoComplete="new-password" minLength={8} maxLength={72} required />
         </label>
 
         <button type="submit" disabled={loading}>{loading ? 'Création…' : 'S’inscrire'}</button>

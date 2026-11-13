@@ -17,8 +17,8 @@ npm run dev                     # http://localhost:5173
 
 En développement, `vite.config.js` relaie `/api/*` vers `localhost:8080` : **aucune config CORS** n'est nécessaire.
 
-### Optionnel : afficher ton nom dans la barre du haut
-Copie `backend-patch/UserController.java` dans `controller/` du back. Sans lui, c'est l'e-mail qui s'affiche.
+### Nom affiché dans la barre du haut
+Il vient de `GET /api/users/me` (fourni par le back). Si l'appel échoue, c'est l'e-mail qui s'affiche.
 
 ## Production (Docker)
 
@@ -33,6 +33,10 @@ Ajoute ceci à `docker-compose.yml` du back (en adaptant le chemin `build`) :
     depends_on: [api]
 ```
 puis `docker compose --profile full up --build` → http://localhost:3000
+
+Derrière nginx, le back lit l'adresse réelle du visiteur grâce à `server.forward-headers-strategy=native`
+(activé dans `application.properties` du back). Pour un vrai domaine (ex. `https://app.exemple.com`), ajoute-le à
+`CORS_ALLOWED_ORIGINS` côté back, et ne publie pas le port 8080 de l'API : seul le front doit être exposé.
 
 ## Architecture
 

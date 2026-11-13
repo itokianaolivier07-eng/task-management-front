@@ -7,7 +7,7 @@ export default function AppLayout() {
   const { user, logout } = useAuth()
   const [name, setName] = useState('')
 
-  // Le nom vient de /api/users/me (patch optionnel). Si l'endpoint n'existe pas : on garde l'e-mail.
+  // Le nom vient de GET /api/users/me. Si l'appel échoue : on garde l'e-mail du token.
   useEffect(() => {
     getMe().then((me) => setName(me.name)).catch(() => {})
   }, [])

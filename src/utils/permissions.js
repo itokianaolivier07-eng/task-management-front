@@ -6,6 +6,9 @@ export const can = {
   manageWorkspace: (role) => isManager(role), // inviter, modifier le workspace
   deleteWorkspace: (role) => role === 'OWNER',
   changeRoles: (role) => role === 'OWNER',
+  // Invitation : OWNER -> ADMIN ou MEMBER ; ADMIN -> MEMBER uniquement (règle du back).
+  inviteAs: (myRole, role) =>
+    myRole === 'OWNER' ? role !== 'OWNER' : myRole === 'ADMIN' && role === 'MEMBER',
   manageProjects: (role) => isManager(role),
 
   removeMember: (myRole, targetRole) =>

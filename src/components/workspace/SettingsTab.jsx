@@ -45,8 +45,8 @@ export default function SettingsTab({ workspace, onUpdated }) {
       <form className="form narrow" onSubmit={save}>
         <ErrorBanner message={error} />
         {saved && <p className="success">Modifications enregistrées.</p>}
-        <label>Nom<input value={name} onChange={(e) => setName(e.target.value)} required /></label>
-        <label>Description<textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} /></label>
+        <label>Nom<input value={name} onChange={(e) => setName(e.target.value)} maxLength={255} required /></label>
+        <label>Description<textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} maxLength={255} /></label>
         <button>Enregistrer</button>
       </form>
 
